@@ -2,6 +2,7 @@ package com.jpa.gadget_plus;
 
 import com.jpa.gadget_plus.entities.BillEntity;
 import com.jpa.gadget_plus.entities.OrderEntity;
+import com.jpa.gadget_plus.entities.ProductEntity;
 import com.jpa.gadget_plus.repositories.BillRepository;
 import com.jpa.gadget_plus.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class GadgetPlusApplication implements CommandLineRunner {
@@ -28,39 +31,15 @@ public class GadgetPlusApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        orderRepository.findAll().forEach(System.out::println);
-//        billRepository.findAll().forEach(System.out::println);
-//
-//        var bill = BillEntity.builder()
-//                .rfc("AD21AD2341")
-//                .totalAmount(BigDecimal.TEN)
-//                .id("b-17")
-//                .build();
-//
-//        var order = OrderEntity.builder()
-//                .createdAt(LocalDateTime.now())
-//                .clientName("Juan")
-//                .bill(bill)
-//                .build();
-//
-//        this.orderRepository.save(order);
-//        var order = this.orderRepository.findById(17L).get();
-//
-//        System.out.println("----- Pre Persist -----");
-//        System.out.println("Name: " + order.getClientName());
-//        System.out.println("RFC: " + order.getBill().getRfc());
-//
-//        order.setClientName("Juan Gonzales Alvarado");
-//        order.getBill().setRfc("aaaa1111");
-//        this.orderRepository.save(order);
-//
-//        var order2 = this.orderRepository.findById(17L).get();
-//
-//        System.out.println("----- Post Persist -----");
-//        System.out.println("Name: " + order2.getClientName());
-//        System.out.println("RFC: " + order2.getBill().getRfc());
+        var product1 = ProductEntity.builder().quantity(BigInteger.ONE).build();
+        var product2 = ProductEntity.builder().quantity(BigInteger.TWO).build();
+        var products = List.of(product1, product2);
 
-        var order = this.orderRepository.findById(17L).get();
-        orderRepository.delete(order);
+        var order = this.orderRepository.findById(1L).orElseThrow();
+        order.setProducts(products);
+
+        products.forEach(product -> product.setOrder(order));
+
+        this.orderRepository.save(order);
     }
 }
