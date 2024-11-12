@@ -44,20 +44,23 @@ public class GadgetPlusApplication implements CommandLineRunner {
 //                .build();
 //
 //        this.orderRepository.save(order);
+//        var order = this.orderRepository.findById(17L).get();
+//
+//        System.out.println("----- Pre Persist -----");
+//        System.out.println("Name: " + order.getClientName());
+//        System.out.println("RFC: " + order.getBill().getRfc());
+//
+//        order.setClientName("Juan Gonzales Alvarado");
+//        order.getBill().setRfc("aaaa1111");
+//        this.orderRepository.save(order);
+//
+//        var order2 = this.orderRepository.findById(17L).get();
+//
+//        System.out.println("----- Post Persist -----");
+//        System.out.println("Name: " + order2.getClientName());
+//        System.out.println("RFC: " + order2.getBill().getRfc());
+
         var order = this.orderRepository.findById(17L).get();
-
-        System.out.println("----- Pre Persist -----");
-        System.out.println("Name: " + order.getClientName());
-        System.out.println("RFC: " + order.getBill().getRfc());
-
-        order.setClientName("Juan Gonzales Alvarado");
-        order.getBill().setRfc("aaaa1111");
-        this.orderRepository.save(order);
-
-        var order2 = this.orderRepository.findById(17L).get();
-
-        System.out.println("----- Post Persist -----");
-        System.out.println("Name: " + order2.getClientName());
-        System.out.println("RFC: " + order2.getBill().getRfc());
+        orderRepository.delete(order);
     }
 }
