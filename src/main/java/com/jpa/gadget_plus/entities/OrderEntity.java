@@ -24,7 +24,7 @@ public class OrderEntity {
     @Column(nullable = false, length = 32)
     private String clientName;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_bill",nullable = false,unique = true)
     private BillEntity bill;
 }
