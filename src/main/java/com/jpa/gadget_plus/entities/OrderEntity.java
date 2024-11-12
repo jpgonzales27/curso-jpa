@@ -32,7 +32,7 @@ public class OrderEntity {
     @JoinColumn(name = "id_bill",nullable = false,unique = true)
     private BillEntity bill;
 
-    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ProductEntity> products = new ArrayList<>();
 
     @Override
