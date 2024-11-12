@@ -23,5 +23,7 @@ public class BillEntity {
     @Column(name = "client_rfc" , length = 14, nullable = false)
     private String rfc;
 
-
+    @ToString.Exclude
+    @OneToOne(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private OrderEntity order;
 }
