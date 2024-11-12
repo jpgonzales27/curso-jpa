@@ -28,21 +28,36 @@ public class GadgetPlusApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        orderRepository.findAll().forEach(System.out::println);
-        billRepository.findAll().forEach(System.out::println);
+//        orderRepository.findAll().forEach(System.out::println);
+//        billRepository.findAll().forEach(System.out::println);
+//
+//        var bill = BillEntity.builder()
+//                .rfc("AD21AD2341")
+//                .totalAmount(BigDecimal.TEN)
+//                .id("b-17")
+//                .build();
+//
+//        var order = OrderEntity.builder()
+//                .createdAt(LocalDateTime.now())
+//                .clientName("Juan")
+//                .bill(bill)
+//                .build();
+//
+//        this.orderRepository.save(order);
+        var order = this.orderRepository.findById(17L).get();
 
-        var bill = BillEntity.builder()
-                .rfc("AD21AD2341")
-                .totalAmount(BigDecimal.TEN)
-                .id("b-17")
-                .build();
+        System.out.println("----- Pre Persist -----");
+        System.out.println("Name: " + order.getClientName());
+        System.out.println("RFC: " + order.getBill().getRfc());
 
-        var order = OrderEntity.builder()
-                .createdAt(LocalDateTime.now())
-                .clientName("Juan")
-                .bill(bill)
-                .build();
-
+        order.setClientName("Juan Gonzales Alvarado");
+        order.getBill().setRfc("aaaa1111");
         this.orderRepository.save(order);
+
+        var order2 = this.orderRepository.findById(17L).get();
+
+        System.out.println("----- Post Persist -----");
+        System.out.println("Name: " + order2.getClientName());
+        System.out.println("RFC: " + order2.getBill().getRfc());
     }
 }
