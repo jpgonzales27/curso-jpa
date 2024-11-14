@@ -40,7 +40,12 @@ public class ProductCatalogEntity {
     @OneToOne(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductEntity product;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
     @JoinTable(
             name = "product_join_category",
             joinColumns = @JoinColumn(name = "id_product"),
