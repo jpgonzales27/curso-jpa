@@ -12,7 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class GadgetPlusApplication implements CommandLineRunner {
@@ -39,19 +42,23 @@ public class GadgetPlusApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        final var HOME = this.categoryRepository.findById(1L).orElseThrow();
-        final var OFFICE = this.categoryRepository.findById(2L).orElseThrow();
 
-        this.productCatalogRepository.findAll().forEach(product -> {
-            if(product.getDescription().contains("home")){
-                product.addCategory(HOME);
-            }
+        var random = new Random();
+        var productsCatalog = new LinkedList<>(this.productCatalogRepository.findAll());
 
-            if(product.getDescription().contains("office")){
-                product.addCategory(OFFICE);
-            }
+        IntStream.range(0, productsCatalog.size()).forEach(i -> {
+            var idOrderRandom = random.nextLong(16) + 1;
+            var orderRandom = this.orderRepository.findById(idOrderRandom).orElseThrow();
 
-            this.productCatalogRepository.save(product);
+            var product = ProductEntity.builder()
+                    .quantity(BigInteger.valueOf(random.nextInt(5) + 1))
+                    .catalog(productsCatalog.poll())
+                    .build();
+
+            orderRandom.addProduct(product);
+            product.setOrder(orderRandom);
+
+            this.orderRepository.save(orderRandom);
         });
     }
 }

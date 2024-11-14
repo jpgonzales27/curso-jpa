@@ -35,6 +35,10 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ProductEntity> products = new ArrayList<>();
 
+    public void addProduct(ProductEntity product){
+        this.products.add(product);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
