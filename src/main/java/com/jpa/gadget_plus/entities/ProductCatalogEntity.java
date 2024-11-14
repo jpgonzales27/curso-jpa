@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,4 +39,16 @@ public class ProductCatalogEntity {
     @ToString.Exclude
     @OneToOne(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductEntity product;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_join_category",
+            joinColumns = @JoinColumn(name = "id_product"),
+            inverseJoinColumns = @JoinColumn(name = "id_category")
+    )
+    private List<CategoryEntity> categories = new ArrayList<>();
+
+    public void addCategory(CategoryEntity category) {
+        this.categories.add(category);
+    }
 }

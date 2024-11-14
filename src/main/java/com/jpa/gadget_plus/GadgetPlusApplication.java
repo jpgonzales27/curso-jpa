@@ -3,10 +3,7 @@ package com.jpa.gadget_plus;
 import com.jpa.gadget_plus.entities.BillEntity;
 import com.jpa.gadget_plus.entities.OrderEntity;
 import com.jpa.gadget_plus.entities.ProductEntity;
-import com.jpa.gadget_plus.repositories.BillRepository;
-import com.jpa.gadget_plus.repositories.OrderRepository;
-import com.jpa.gadget_plus.repositories.ProductCatalogRepository;
-import com.jpa.gadget_plus.repositories.ProductRepository;
+import com.jpa.gadget_plus.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +29,9 @@ public class GadgetPlusApplication implements CommandLineRunner {
     @Autowired
     private ProductCatalogRepository productCatalogRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(GadgetPlusApplication.class, args);
@@ -39,25 +39,19 @@ public class GadgetPlusApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var productCatalog1 = this.productCatalogRepository.findAll().get(0);
-        var productCatalog2 = this.productCatalogRepository.findAll().get(5);
-        var productCatalog3 = this.productCatalogRepository.findAll().get(7);
+        final var HOME = this.categoryRepository.findById(1L).orElseThrow();
+        final var OFFICE = this.categoryRepository.findById(2L).orElseThrow();
 
-        var order = this.orderRepository.findById(1L).get();
+        this.productCatalogRepository.findAll().forEach(product -> {
+            if(product.getDescription().contains("home")){
+                product.addCategory(HOME);
+            }
 
-        var product1 = ProductEntity.builder().quantity(BigInteger.ONE).build();
-        var product2 = ProductEntity.builder().quantity(BigInteger.TEN).build();
-        var product3 = ProductEntity.builder().quantity(BigInteger.TWO).build();
+            if(product.getDescription().contains("office")){
+                product.addCategory(OFFICE);
+            }
 
-        var productsList = List.of(product1, product2, product3);
-
-        product1.setCatalog(productCatalog1);
-        product2.setCatalog(productCatalog2);
-        product3.setCatalog(productCatalog3);
-
-        order.setProducts(productsList);
-        productsList.forEach(product-> product.setOrder(order));
-
-        this.orderRepository.save(order);
+            this.productCatalogRepository.save(product);
+        });
     }
 }
