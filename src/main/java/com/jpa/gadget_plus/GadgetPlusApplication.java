@@ -35,6 +35,9 @@ public class GadgetPlusApplication implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private RejectProductRepository rejectProductRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(GadgetPlusApplication.class, args);
@@ -43,22 +46,23 @@ public class GadgetPlusApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        var random = new Random();
-        var productsCatalog = new LinkedList<>(this.productCatalogRepository.findAll());
-
-        IntStream.range(0, productsCatalog.size()).forEach(i -> {
-            var idOrderRandom = random.nextLong(16) + 1;
-            var orderRandom = this.orderRepository.findById(idOrderRandom).orElseThrow();
-
-            var product = ProductEntity.builder()
-                    .quantity(BigInteger.valueOf(random.nextInt(5) + 1))
-                    .catalog(productsCatalog.poll())
-                    .build();
-
-            orderRandom.addProduct(product);
-            product.setOrder(orderRandom);
-
-            this.orderRepository.save(orderRandom);
-        });
+//        var random = new Random();
+//        var productsCatalog = new LinkedList<>(this.productCatalogRepository.findAll());
+//
+//        IntStream.range(0, productsCatalog.size()).forEach(i -> {
+//            var idOrderRandom = random.nextLong(16) + 1;
+//            var orderRandom = this.orderRepository.findById(idOrderRandom).orElseThrow();
+//
+//            var product = ProductEntity.builder()
+//                    .quantity(BigInteger.valueOf(random.nextInt(5) + 1))
+//                    .catalog(productsCatalog.poll())
+//                    .build();
+//
+//            orderRandom.addProduct(product);
+//            product.setOrder(orderRandom);
+//
+//            this.orderRepository.save(orderRandom);
+//        });
+        this.rejectProductRepository.findAll().forEach(System.out::println);
     }
 }
