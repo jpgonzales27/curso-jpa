@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,6 +38,7 @@ public class ProductCatalogEntity {
     private Short rating;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToOne(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductEntity product;
 

@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +27,6 @@ public class CategoryEntity {
 
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "categories")
     @ToString.Exclude
+    @JsonIgnore
     private List<ProductCatalogEntity> productsCatalog;
 }
