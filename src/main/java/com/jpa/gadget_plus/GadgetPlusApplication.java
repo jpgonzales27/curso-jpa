@@ -46,6 +46,22 @@ public class GadgetPlusApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+//        final var HOME = this.categoryRepository.findById(1L).orElseThrow();
+//		final var OFFICE = this.categoryRepository.findById(2L).orElseThrow();
+//
+//		this.productCatalogRepository.findAll().forEach(product -> {
+//
+//			if (product.getDescription().contains("home")) {
+//				product.addCategory(HOME);
+//			}
+//
+//			if (product.getDescription().contains("office")) {
+//				product.addCategory(OFFICE);
+//			}
+//
+//			this.productCatalogRepository.save(product);
+//		});
+
 //        var random = new Random();
 //        var productsCatalog = new LinkedList<>(this.productCatalogRepository.findAll());
 //
@@ -63,6 +79,6 @@ public class GadgetPlusApplication implements CommandLineRunner {
 //
 //            this.orderRepository.save(orderRandom);
 //        });
-        this.rejectProductRepository.findAll().forEach(System.out::println);
+//        this.rejectProductRepository.findAll().forEach(System.out::println);
     }
 }
