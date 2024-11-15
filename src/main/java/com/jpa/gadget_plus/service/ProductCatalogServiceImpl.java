@@ -28,7 +28,7 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 
     @Override
     public ProductCatalogEntity findByName(String name) {
-        return null;
+        return productCatalogRepository.findByName(name).orElseThrow();
     }
 
     @Override

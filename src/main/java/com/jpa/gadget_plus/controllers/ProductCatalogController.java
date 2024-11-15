@@ -22,4 +22,9 @@ public class ProductCatalogController {
     public ResponseEntity<ProductCatalogEntity> getById(@PathVariable String id){
         return ResponseEntity.ok(productCatalogService.findById(UUID.fromString(id)));
     }
+
+    @GetMapping("name/{name}")
+    public ResponseEntity<ProductCatalogEntity> getByName(@PathVariable String name){
+        return ResponseEntity.ok(productCatalogService.findByName(name));
+    }
 }
