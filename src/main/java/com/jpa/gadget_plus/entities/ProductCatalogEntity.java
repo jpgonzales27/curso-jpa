@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "productCatalog")
 @Table(name = "products_catalog")
 @Getter
 @Setter

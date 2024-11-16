@@ -37,8 +37,13 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     }
 
     @Override
-    public List<ProductCatalogEntity> findNameBetween(BigDecimal min, BigDecimal max) {
-        return List.of();
+    public List<ProductCatalogEntity> findByPriceBetween(BigDecimal min, BigDecimal max) {
+        return productCatalogRepository.findByPriceBetween(min, max);
+    }
+
+    @Override
+    public List<ProductCatalogEntity> findBetweenByQuery(BigDecimal min, BigDecimal max) {
+        return productCatalogRepository.findBetweenByQuery(min, max);
     }
 
     @Override

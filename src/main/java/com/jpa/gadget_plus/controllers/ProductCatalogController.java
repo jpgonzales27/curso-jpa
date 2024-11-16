@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,12 +23,12 @@ public class ProductCatalogController {
         return ResponseEntity.ok(productCatalogService.findById(UUID.fromString(id)));
     }
 
-    @GetMapping("name/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<ProductCatalogEntity> getByName(@PathVariable String name){
         return ResponseEntity.ok(productCatalogService.findByName(name));
     }
 
-    @GetMapping("like/{key}")
+    @GetMapping("/like/{key}")
     public ResponseEntity<List<ProductCatalogEntity>> getByName(@PathVariable LikeKey key, @RequestParam String word){
         final var comodin = '%';
         if(key.equals(LikeKey.AFTER)) {
@@ -43,5 +44,21 @@ public class ProductCatalogController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/between")
+    public  ResponseEntity<List<ProductCatalogEntity>> getByPriceByBetween(
+            @RequestParam BigDecimal min,
+            @RequestParam BigDecimal max
+    ){
+        return ResponseEntity.ok(productCatalogService.findByPriceBetween(min,max));
+    }
+
+    @GetMapping("/between-query")
+    public  ResponseEntity<List<ProductCatalogEntity>> getByPriceBetweenQuery(
+            @RequestParam BigDecimal min,
+            @RequestParam BigDecimal max
+    ){
+        return ResponseEntity.ok(productCatalogService.findBetweenByQuery(min,max));
     }
 }
