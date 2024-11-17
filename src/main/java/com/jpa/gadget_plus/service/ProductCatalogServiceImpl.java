@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.service;
 
+import com.jpa.gadget_plus.dtos.ReportProduct;
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
 import com.jpa.gadget_plus.enums.DateEval;
 import com.jpa.gadget_plus.repositories.ProductCatalogRepository;
@@ -69,6 +70,11 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     @Override
     public List<ProductCatalogEntity> findByBrandOrRating(String brand, Short rating) {
         return productCatalogRepository.findByBrandOrRatingGreaterThan(brand, rating);
+    }
+
+    @Override
+    public List<ReportProduct> makeReport() {
+        return productCatalogRepository.findAndMakeReport();
     }
 
     @Override

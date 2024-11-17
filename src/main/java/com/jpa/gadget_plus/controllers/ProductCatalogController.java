@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.controllers;
 
+import com.jpa.gadget_plus.dtos.ReportProduct;
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
 import com.jpa.gadget_plus.enums.DateEval;
 import com.jpa.gadget_plus.enums.LikeKey;
@@ -88,5 +89,10 @@ public class ProductCatalogController {
             @RequestParam String brand,
             @RequestParam short rating) {
         return ResponseEntity.ok(this.productCatalogService.findByBrandOrRating(brand,rating));
+    }
+
+    @GetMapping("/report")
+    public ResponseEntity<List<ReportProduct>> makeReport() {
+        return ResponseEntity.ok(this.productCatalogService.makeReport());
     }
 }

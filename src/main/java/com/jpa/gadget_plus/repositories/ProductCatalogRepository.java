@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.repositories;
 
+import com.jpa.gadget_plus.dtos.ReportProduct;
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -42,5 +43,18 @@ public interface ProductCatalogRepository extends JpaRepository<ProductCatalogEn
      * select * from products_catalog where brand_name = 'Apple' and rating > 3;
      */
     List<ProductCatalogEntity> findByBrandOrRatingGreaterThan(String brand,short rating);
+
+    /*
+     * select pc.brand_name, avg(pc.price) as average, sum(pc.price) as totalPrice
+     * from products_catalog pc group by pc.brand_name;
+     */
+    @Query("select new com.jpa.gadget_plus.dtos.ReportProduct("
+            + "pc.brand,"
+            + "avg(pc.price),"
+            + "sum(pc.price))"
+            + "from productCatalog  pc "
+            + "group by pc.brand")
+    List<ReportProduct> findAndMakeReport();
+
 
 }

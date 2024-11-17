@@ -1,5 +1,6 @@
 package com.jpa.gadget_plus.service;
 
+import com.jpa.gadget_plus.dtos.ReportProduct;
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
 import com.jpa.gadget_plus.enums.DateEval;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,7 @@ public interface ProductCatalogService {
     List<ProductCatalogEntity> findByLaunchingDate(LocalDate date, DateEval key);
     List<ProductCatalogEntity> findByBrandAndRating(String brand, Short rating);
     List<ProductCatalogEntity> findByBrandOrRating(String brand, Short rating);
-    //List<ReportProduct> makeReport();
+    List<ReportProduct> makeReport();
 
     Page<ProductCatalogEntity> findAll(String field, Boolean desc, Integer page);
     Page<ProductCatalogEntity> findAllByBrand(String brand);
