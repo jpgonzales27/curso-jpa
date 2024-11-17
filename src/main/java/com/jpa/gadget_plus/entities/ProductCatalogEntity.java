@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ProductCatalogEntity {
     private String description;
     private BigDecimal price;
 
-    private LocalDateTime launchingDate;
+    private LocalDate launchingDate;
     private Boolean isDiscount;
     private Short rating;
 

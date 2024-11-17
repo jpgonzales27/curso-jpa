@@ -1,6 +1,7 @@
 package com.jpa.gadget_plus.service;
 
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
+import com.jpa.gadget_plus.enums.DateEval;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ public interface ProductCatalogService {
     List<ProductCatalogEntity> findByPriceBetween(BigDecimal min, BigDecimal max);
     List<ProductCatalogEntity> findBetweenByQuery(BigDecimal min, BigDecimal max);
     List<ProductCatalogEntity> findByCategoryId(Long id);
-    //List<ProductCatalogEntity> findByLaunchingDate(LocalDate date, DateEval key);
+    List<ProductCatalogEntity> findByLaunchingDate(LocalDate date, DateEval key);
     List<ProductCatalogEntity> findByBrandAndRating(String brand, Short rating);
     //List<ReportProduct> makeReport();
 
