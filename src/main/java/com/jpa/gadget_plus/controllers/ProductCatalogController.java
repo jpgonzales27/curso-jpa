@@ -19,46 +19,51 @@ public class ProductCatalogController {
     private final ProductCatalogService productCatalogService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductCatalogEntity> getById(@PathVariable String id){
+    public ResponseEntity<ProductCatalogEntity> getById(@PathVariable String id) {
         return ResponseEntity.ok(productCatalogService.findById(UUID.fromString(id)));
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<ProductCatalogEntity> getByName(@PathVariable String name){
+    public ResponseEntity<ProductCatalogEntity> getByName(@PathVariable String name) {
         return ResponseEntity.ok(productCatalogService.findByName(name));
     }
 
     @GetMapping("/like/{key}")
-    public ResponseEntity<List<ProductCatalogEntity>> getByName(@PathVariable LikeKey key, @RequestParam String word){
+    public ResponseEntity<List<ProductCatalogEntity>> getByName(@PathVariable LikeKey key, @RequestParam String word) {
         final var comodin = '%';
-        if(key.equals(LikeKey.AFTER)) {
-            return ResponseEntity.ok(productCatalogService.findNameLike(comodin+word)); //%word
+        if (key.equals(LikeKey.AFTER)) {
+            return ResponseEntity.ok(productCatalogService.findNameLike(comodin + word)); //%word
         }
 
-        if(key.equals(LikeKey.BEFORE)) {
-            return ResponseEntity.ok(productCatalogService.findNameLike(word+comodin)); //%word
+        if (key.equals(LikeKey.BEFORE)) {
+            return ResponseEntity.ok(productCatalogService.findNameLike(word + comodin)); //%word
         }
 
-        if(key.equals(LikeKey.BETWEEN)) {
-            return ResponseEntity.ok(productCatalogService.findNameLike(comodin+word+comodin)); //%word
+        if (key.equals(LikeKey.BETWEEN)) {
+            return ResponseEntity.ok(productCatalogService.findNameLike(comodin + word + comodin)); //%word
         }
 
         return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("/between")
-    public  ResponseEntity<List<ProductCatalogEntity>> getByPriceByBetween(
+    public ResponseEntity<List<ProductCatalogEntity>> getByPriceByBetween(
             @RequestParam BigDecimal min,
             @RequestParam BigDecimal max
-    ){
-        return ResponseEntity.ok(productCatalogService.findByPriceBetween(min,max));
+    ) {
+        return ResponseEntity.ok(productCatalogService.findByPriceBetween(min, max));
     }
 
     @GetMapping("/between-query")
-    public  ResponseEntity<List<ProductCatalogEntity>> getByPriceBetweenQuery(
+    public ResponseEntity<List<ProductCatalogEntity>> getByPriceBetweenQuery(
             @RequestParam BigDecimal min,
             @RequestParam BigDecimal max
-    ){
-        return ResponseEntity.ok(productCatalogService.findBetweenByQuery(min,max));
+    ) {
+        return ResponseEntity.ok(productCatalogService.findBetweenByQuery(min, max));
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<ProductCatalogEntity>> getByCategory(@PathVariable Long id) {
+        return ResponseEntity.ok(productCatalogService.findByCategoryId(id));
     }
 }
