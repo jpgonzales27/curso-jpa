@@ -82,4 +82,11 @@ public class ProductCatalogController {
             @RequestParam short rating) {
         return ResponseEntity.ok(this.productCatalogService.findByBrandAndRating(brand,rating));
     }
+
+    @GetMapping("/brand-rating-or")
+    public ResponseEntity<List<ProductCatalogEntity>> getByBrandOrRating(
+            @RequestParam String brand,
+            @RequestParam short rating) {
+        return ResponseEntity.ok(this.productCatalogService.findByBrandOrRating(brand,rating));
+    }
 }

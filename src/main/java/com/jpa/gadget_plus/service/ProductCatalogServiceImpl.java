@@ -67,6 +67,11 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     }
 
     @Override
+    public List<ProductCatalogEntity> findByBrandOrRating(String brand, Short rating) {
+        return productCatalogRepository.findByBrandOrRatingGreaterThan(brand, rating);
+    }
+
+    @Override
     public Page<ProductCatalogEntity> findAll(String field, Boolean desc, Integer page) {
         return null;
     }
