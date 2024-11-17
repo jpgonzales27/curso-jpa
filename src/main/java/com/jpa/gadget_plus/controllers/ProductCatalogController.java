@@ -75,4 +75,11 @@ public class ProductCatalogController {
             @RequestParam LocalDate date) {
         return ResponseEntity.ok(this.productCatalogService.findByLaunchingDate(date, key));
     }
+
+    @GetMapping("/brand-rating")
+    public ResponseEntity<List<ProductCatalogEntity>> getByBrandAndRating(
+            @RequestParam String brand,
+            @RequestParam short rating) {
+        return ResponseEntity.ok(this.productCatalogService.findByBrandAndRating(brand,rating));
+    }
 }
