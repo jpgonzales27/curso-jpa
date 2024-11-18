@@ -6,6 +6,7 @@ import com.jpa.gadget_plus.enums.DateEval;
 import com.jpa.gadget_plus.enums.LikeKey;
 import com.jpa.gadget_plus.service.ProductCatalogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,5 +95,13 @@ public class ProductCatalogController {
     @GetMapping("/report")
     public ResponseEntity<List<ReportProduct>> makeReport() {
         return ResponseEntity.ok(this.productCatalogService.makeReport());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<ProductCatalogEntity>> getAll(
+            @RequestParam(required=false) String field,
+            @RequestParam(required=false) Boolean desc,
+            @RequestParam Integer page) {
+        return ResponseEntity.ok(this.productCatalogService.findAll(field,desc,page));
     }
 }

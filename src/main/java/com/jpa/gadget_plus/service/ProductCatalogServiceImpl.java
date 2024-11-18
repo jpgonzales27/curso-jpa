@@ -8,6 +8,7 @@ import com.jpa.gadget_plus.repositories.ProductCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class ProductCatalogServiceImpl implements ProductCatalogService {
 
     private final ProductCatalogRepository productCatalogRepository;
+    private static final int PAGE_SIZE = 5;
 
     @Override
     public ProductCatalogEntity findById(UUID id) {
@@ -79,7 +81,7 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 
     @Override
     public Page<ProductCatalogEntity> findAll(String field, Boolean desc, Integer page) {
-        return null;
+        return productCatalogRepository.findAll(PageRequest.of(page, PAGE_SIZE));
     }
 
     @Override
