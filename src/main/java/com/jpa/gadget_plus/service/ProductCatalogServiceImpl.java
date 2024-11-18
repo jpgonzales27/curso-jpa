@@ -112,6 +112,6 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 
     @Override
     public Integer countByBrand(String brand) {
-        return 0;
+        return productCatalogRepository.countTotalProductsByBrandStoreProcedure(brand);
     }
 }
