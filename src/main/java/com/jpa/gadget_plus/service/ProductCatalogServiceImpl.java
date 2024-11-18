@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
 
     private final ProductCatalogRepository productCatalogRepository;
     private static final int PAGE_SIZE = 5;
+    private static final int PAGE_MIN_SIZE = 2;
 
     @Override
     public ProductCatalogEntity findById(UUID id) {
@@ -104,8 +106,8 @@ public class ProductCatalogServiceImpl implements ProductCatalogService {
     }
 
     @Override
-    public Page<ProductCatalogEntity> findAllByBrand(String brand) {
-        return null;
+    public Page<ProductCatalogEntity> findAllByBrand(String brand, Integer page) {
+        return productCatalogRepository.findAllByBrand(brand, PageRequest.of(page,PAGE_MIN_SIZE));
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.jpa.gadget_plus.dtos.ReportProduct;
 import com.jpa.gadget_plus.entities.ProductCatalogEntity;
 import com.jpa.gadget_plus.enums.DateEval;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public interface ProductCatalogService {
     List<ReportProduct> makeReport();
 
     Page<ProductCatalogEntity> findAll(String field, Boolean desc, Integer page);
-    Page<ProductCatalogEntity> findAllByBrand(String brand);
+    Page<ProductCatalogEntity> findAllByBrand(String brand, Integer page);
 
     Integer countByBrand(String brand);
 }

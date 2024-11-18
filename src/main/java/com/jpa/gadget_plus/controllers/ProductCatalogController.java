@@ -7,6 +7,7 @@ import com.jpa.gadget_plus.enums.LikeKey;
 import com.jpa.gadget_plus.service.ProductCatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,5 +104,12 @@ public class ProductCatalogController {
             @RequestParam Boolean desc,
             @RequestParam Integer page) {
         return ResponseEntity.ok(this.productCatalogService.findAll(field,desc,page));
+    }
+
+    @GetMapping("/all-by-brand")
+    public ResponseEntity<Page<ProductCatalogEntity>> getAllByBrand(
+            @RequestParam String brand,
+            @RequestParam Integer page) {
+        return ResponseEntity.ok(this.productCatalogService.findAllByBrand(brand,page));
     }
 }
